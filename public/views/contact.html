@@ -9,14 +9,14 @@
 <div id="page">
     <header class="site-header">
         <div class="site-branding">
-            <h1 class="site-title"><a href="homepage.htmlhp">greybenjii</a></h1>
+            <h1 class="site-title"><a href="homepage">greybenjii</a></h1>
             <h2 class="site-description">Contact</h2>
         </div>
         <nav class="main-navigation">
             <ul class="menu">
-                <li><a href="homepage.htmlhp">Home</a></li>
-                <li><a href="about.htmlx.php">About</a></li>
-                <li><a href="../index.php">Contact</a></li>
+                <li><a href="homepage">Home</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -30,7 +30,7 @@
                 <div class="content">
                     <p>Feel free to reach out with any questions or inquiries. I'd love to hear from you!</p>
                     <div class="contact-form">
-                        <form action="contact.php.php" method="post">
+                        <form action="../../app/controllers/ContactController.php" method="post" id="contactform">
                             <div class="form-field">
                                 <label for="name">Name *</label>
                                 <input type="text" name="name" id="name" placeholder="Your Name" required>
@@ -61,8 +61,31 @@
         <a href="#top" class="back-to-top">Back to top</a>
     </footer>
 </div>
+<script src="../js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#contactform').on('submit', function (e) {
+            e.preventDefault();
 
-<script src="../js/jquery.js"></script>
-<script src="../js/scripts.js"></script>
+            const formData = {
+                name: $('#name').val(),
+                email: $('#email').val(),
+                message: $('#message').val()
+            };
+
+            $.ajax({
+                url: 'http://localhost:8888/api/contact',
+                type: 'POST',
+                data: formData,
+                success: function () {
+                    alert("Message sent successfully!");
+                },
+                error: function () {
+                    alert("Error sending message. Please try again later.");
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
