@@ -91,6 +91,14 @@ class ContactController extends Controller
         exit();
     }
 
+    public function getMessageCount()
+    {
+        header('Content-Type: application/json');
+        $model = new Message();
+        $count = $model->getMessageCount();
+        echo json_encode(['count' => $count]);
+    }
+
     public function contactView(): void
     {
         include '../../public/views/contact.html';

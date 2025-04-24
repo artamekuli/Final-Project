@@ -52,4 +52,9 @@ abstract class Model
         $stmt = $this->pdo->prepare($query);
         return $stmt->execute($data);
     }
+
+    public function query(string $query): PDOStatement
+    {
+        return $this->pdo->query($query);
+    }
 }
