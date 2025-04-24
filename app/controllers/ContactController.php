@@ -3,13 +3,14 @@
 namespace app\controllers;
 
 use app\models\Message;
-use JetBrains\PhpStorm\NoReturn;
 
-class ContactController
+class ContactController extends Controller
 {
-    public function contactpage() {
+    public function contactpage()
+    {
         $this->returnView('../public/views/contact.html');
     }
+
     public function validateContact($inputData)
     {
         $errors = [];
@@ -58,7 +59,7 @@ class ContactController
         ];
     }
 
-    #[NoReturn] public function submit(): void
+    public function submit(): void
     {
         $inputData = [
             'name' => $_POST['name'] ?? null,
@@ -66,21 +67,31 @@ class ContactController
             'message' => $_POST['message'] ?? null,
         ];
 
+        error_log('Form Data: ' . print_r($inputData, true));
+
         $validated = $this->validateContact($inputData);
 
         $msgModel = new Message();
-        $msgModel->saveMessage([
+
+        error_log('Validated Data: ' . print_r($validated, true));
+
+        $result = $msgModel->saveMessage([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'message' => $validated['message'],
         ]);
 
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'Message received and saved!']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to save message.']);
+        }
+
         http_response_code(200);
-        echo json_encode(['success' => true, 'message' => 'Message received!']);
         exit();
     }
 
-    #[NoReturn] public function contactView(): void
+    public function contactView(): void
     {
         include '../../public/views/contact.html';
         exit();

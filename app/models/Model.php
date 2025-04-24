@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\core\Dotenv;
 use PDO;
 use PDOException;
 
@@ -13,33 +12,19 @@ abstract class Model
 
     public function __construct()
     {
-        $this->loadEnv();
         $this->pdo = $this->connect();
-    }
-
-    private function loadEnv(): void
-    {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
-        $dotenv->safeLoad();
     }
 
     private function connect(): PDO
     {
-        $host = $_ENV['DBHOST'] ?? 'localhost';
-        $db   = $_ENV['DBNAME'] ?? 'portfolio_db';
-        $user = $_ENV['DBUSER'] ?? 'root';
-        $pass = $_ENV['DBPASS'] ?? '';
-        $port = $_ENV['DBPORT'] ?? '8888';
-
-        $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=utf8mb4";
-
+        $dsn = "mysql:hostname=" . DBHOST . ";dbname=" . DBNAME;
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ];
 
         try {
-            return new PDO($dsn, $user, $pass, $options);
+            return new PDO($dsn, DBUSER, DBPASS, $options);
         } catch (PDOException $e) {
             throw new PDOException("DB connection failed: " . $e->getMessage(), $e->getCode());
         }

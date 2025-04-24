@@ -33,7 +33,6 @@ a:hover {
     color: #5c768a;
 }
 
-/*Typography*/
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
@@ -62,7 +61,6 @@ em, i {
     font-style: italic;
 }
 
-/*Layout & Grid*/
 .container {
     margin: 0 auto;
     padding: 0 20px;
@@ -91,7 +89,6 @@ em, i {
     }
 }
 
-/*Navigation*/
 .main-navigation {
     background: #cfdce5;
     font-family: 'Oswald';
@@ -109,7 +106,6 @@ em, i {
     padding: 0.5em 1em;
 }
 
-/*Sections*/
 .section {
     padding: 3em 0;
 }
@@ -121,7 +117,6 @@ em, i {
     font-family: 'Oswald';
 }
 
-/*Forms (for contact page)*/
 input[type="text"],
 input[type="email"],
 textarea {
@@ -183,8 +178,6 @@ button:hover, input[type="submit"]:hover {
     margin-right: 0;
 }
 
-
-/*Responsive*/
 @media (max-width: 768px) {
     .main-navigation {
         font-size: 13px;

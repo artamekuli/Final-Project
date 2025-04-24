@@ -25,12 +25,11 @@ class Router {
         if ($this->uriArray[1] === '' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $mainController = new MainController();
             $mainController->homepage();
-        } else {
-            if ($this->uriArray[1] === 'homepage' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-                $mainController = new MainController();
-                $mainController->homepage();
+        } else if ($this->uriArray[1] === 'homepage' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $mainController = new MainController();
+            $mainController->homepage();
         }
-    }}
+    }
 
     protected function handleAboutRoutes() {
         if ($this->uriArray[1] === 'about' && $_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -43,6 +42,11 @@ class Router {
         if ($this->uriArray[1] === 'contact' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $contactController = new ContactController();
             $contactController->contactpage();
+        }
+
+        if ($this->uriArray[1] === 'contact' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $contactController = new ContactController();
+            $contactController->submit();
         }
     }
 }

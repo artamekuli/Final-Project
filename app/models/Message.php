@@ -5,15 +5,28 @@ namespace app\models;
 class Message extends Model
 {
     protected string $table = 'messages';
-
     public function saveMessage(array $data): bool
     {
         $query = "INSERT INTO messages (name, email, message) VALUES (:name, :email, :message)";
-        return $this->execute($query, $data);
+
+        $result = $this->execute($query, $data);
+
+        if (!$result) {
+            $this->logError();
+        }
+
+        return $result;
     }
 
     public function getAllMessages(): array
     {
-        return $this->fetchAll("SELECT * FROM $this->table ORDER BY created_at DESC");
+        $query = "SELECT * FROM $this->table ORDER BY created_at DESC";
+
+        return $this->fetchAll($query);
+    }
+
+    public function logError(): void
+    {
+        error_log('Error inserting data into the database: ' . print_r($data, true));
     }
 }
