@@ -17,7 +17,7 @@ abstract class Model
 
     private function connect(): PDO
     {
-        $dsn = "mysql:hostname=" . DBHOST . ";dbname=" . DBNAME;
+        $dsn = "mysql:host=" . DBHOST . ";port=" . DBPORT . ";dbname=" . DBNAME;
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
